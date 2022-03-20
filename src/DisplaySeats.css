@@ -1,0 +1,20 @@
+.display__seats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  flex-direction: row;
+  width: 100%;
+}
+.display__left__details {
+  width: 45%;
+  margin-top: 100px;
+  height: 320px;
+  padding-top: 30px;
+  background-color: #2c3333;
+  color: white;
+  border-radius: 20px;
+}
+.display__right__details {
+  width: 45%;
+}

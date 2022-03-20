@@ -1,0 +1,41 @@
+.complete__payment {
+  margin-top: 150px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+
+  /* align-items: center;
+  text-align: center; */
+}
+.movie__ticket {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 20px solid gray;
+  border-radius: 10px;
+  border-right-style: dotted;
+  margin-top: 50px;
+}
+.left__portion {
+  display: flex;
+  flex-direction: column;
+}
+.line__2,
+.line__3,
+.line__4,
+.line__5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.line__contents {
+  text-align: left;
+}
+

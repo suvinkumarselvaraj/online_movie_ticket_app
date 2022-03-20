@@ -1,0 +1,24 @@
+.card__element {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #f3e9dd;
+  background-color: #05595b;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.expiry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exp {
+  width: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+}

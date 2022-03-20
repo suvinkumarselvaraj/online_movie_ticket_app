@@ -1,0 +1,56 @@
+.valimai {
+  margin-top: 150px;
+}
+.valimai__container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.valimai__right__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.valimai__instructions {
+  width: 33%;
+}
+.valimai__theatre__info {
+  background-color: #2c3333;
+  border: none;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.valimai__available__time {
+  padding: 5px;
+  color: white;
+}
+.theatre__select {
+  background-color: rgb(248, 68, 100);
+  /* margin-bottom: 4px; */
+  border-radius: 5px;
+  z-index: 10;
+  padding: 5px;
+  color: white;
+  border: none;
+}
+.timing__button {
+  background-color: #2c3333;
+  border: none;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-top: 15px;
+}
+.valimai__calendar {
+  display: none;
+}
+.valimai__available__time {
+  display: none;
+}

@@ -1,0 +1,15 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 100px;
+}
+.home__row__1 {
+  display: flex;
+  /* margin-top: 30px; */
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  padding: 15px;
+}

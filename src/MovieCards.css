@@ -1,0 +1,36 @@
+.movie__cards {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+}
+.movie__des {
+  width: fit-content;
+  border-radius: 5px;
+  color: white;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+.movie__image {
+  width: 200px;
+  height: 300px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.movie__text__des {
+  background-color: black;
+  width: 100%;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.movie__image:hover {
+  width: 250px;
+  height: 300px;
+  box-shadow: 10px 10px 5px rgb(125, 150, 150);
+}
