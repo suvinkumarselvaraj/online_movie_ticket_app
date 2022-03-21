@@ -15,6 +15,7 @@ import Login from './Login';
 import CompletePayment from './CompletePayment';
 import DisplayBookings from './DisplayBookings';
 import DisplayBooking from './DisplayBooking';
+import SendTickets from './SendTickets';
 
 function App() {
 
@@ -62,6 +63,9 @@ function App() {
             <Header />
             <CompletePayment />
           </Route>
+          <Route path = "/checking">
+           <SendTickets />
+         </Route>
           <Route path = "/">
           <Header></Header>
           <Home />
