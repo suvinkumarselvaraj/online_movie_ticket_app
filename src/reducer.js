@@ -71,7 +71,8 @@ export const initialSeatState = {
 
         ],
     movie__clicked: null,
-    user: null
+    user: null,
+    data__set: 0
 };
 
 const reducer = (state, action)=>{
@@ -162,6 +163,14 @@ const reducer = (state, action)=>{
                 user:null
             })
         }
+        break;
+        case 'Add__to__dataset':{
+            return({
+                ...state,
+                data__set: count
+            })
+        }
+        break;
         default: return state;
     }
 }

@@ -44,7 +44,7 @@ function CompletePayment() {
         prefix = {"$"}
         /> 
         </div>
-        <strong>VALIMAI</strong>
+        <strong>{movie.title}</strong>
         <p>Movie start time: {movie__time}</p>
         <p>Booked at: {movie__date.substring(0,16)}</p>
         <p>Venue: {movie__theatre}</p>

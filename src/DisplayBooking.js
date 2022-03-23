@@ -18,8 +18,9 @@ function DisplayBooking() {
     var arrayOfMovies;
     const[{user},dispatch] = useStateValue();
     var visited = 0;
-  //finding the total data set count 
 
+  //go to this url only once and do not go again 
+  //finding the total data set count 
     console.log("inside function ");
     fetch('http://localhost:8080/tickets/display?username='+user)
     .then(res=>res.json())

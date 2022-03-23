@@ -64,6 +64,7 @@ function App() {
             <CompletePayment />
           </Route>
           <Route path = "/checking">
+            <Header />
            <SendTickets />
          </Route>
           <Route path = "/">
