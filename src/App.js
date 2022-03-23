@@ -10,7 +10,7 @@ import ValimaiBooking from './ValimaiBooking';
 import DisplaySeats from './DisplaySeats';
 import Payment from './Payment';
 import { StateProvider, useStateValue } from './StateProvider';
-import CardElement from './CardElement';
+
 import Login from './Login';
 import CompletePayment from './CompletePayment';
 import DisplayBookings from './DisplayBookings';
