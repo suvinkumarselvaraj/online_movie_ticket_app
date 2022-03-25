@@ -8,9 +8,8 @@ function MovieCards({id,image,title,genre}) {
       const [movie__clicked, dispatch] = useStateValue();
       const idTracker = id;
       console.log(idTracker);
-      
       var name =title;
-      name = name.replace(/ +/g,"").toLowerCase();
+      name = name?.replace(/ +/g,"").toLowerCase();
       console.log(name);
       function handleClick(event){
         console.log('movie id and title that you clicked is '+event.target.id+' '+event.target.title);
@@ -21,13 +20,12 @@ function MovieCards({id,image,title,genre}) {
         console.log(idTracker);
         console.log(name);
         // navigate.push("/movies/"+idTracker+"/"+name);
-      }
-  
-  
+      } 
   return (
     <div className='movie__cards'>
         <div className='movie__des'>
-           <Link to ={"/movies/"+idTracker}> <img name = {title} id = {id} className='movie__image' src = {image} alt = "" onClick={handleClick}>
+           <Link to ={"/movies/"+idTracker}>
+            <img name = {title} id = {id} className='movie__image' src = {image} alt = "" onClick={handleClick}>
             </img>
             </Link>
             
