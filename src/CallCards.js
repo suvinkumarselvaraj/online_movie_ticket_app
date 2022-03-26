@@ -18,13 +18,6 @@ function CallCards(id) {
   },[]);
 
   const[{movies,movie__clicked},dispatch] = useStateValue();
-
-  // console.log('id is '+id.id);
-  // let mid = parseInt(id.id);
-  // console.log(typeof(mid));
-
-  
-  //   console.log('movie'+movie__clicked); 
     
   function handleClick(event){
       dispatch({
@@ -54,7 +47,7 @@ function CallCards(id) {
             <strong>About</strong>
             <p>{datas?.outline}</p>
             <p>Run time: {datas?.runtime}</p> 
-         <Link to = {'/movies/book_now'}><button type = "submit"  onClick = {handleClick}  id = {datas?.index} className='callcards__button' value = "Book Now">Book now</button>
+         <Link to = {'/movies/book_now/'+datas?.index}><button type = "submit"  onClick = {handleClick}  id = {datas?.index} className='callcards__button' value = "Book Now">Book now</button>
          </Link>      
            </div>
     </div>

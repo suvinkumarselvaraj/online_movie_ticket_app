@@ -42,9 +42,9 @@ function App() {
             <CallCards id = {movie__id}/>
           </Route>  
           
-          <Route path = "/movies/book_now">
+          <Route path = {"/movies/book_now/"+movie__id}>
             <Header />
-              <ValimaiBooking />
+              <ValimaiBooking id = {movie__id}/>
           </Route>
 
           <Route path = "/movies/seats">

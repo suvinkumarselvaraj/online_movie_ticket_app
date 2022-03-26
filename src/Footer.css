@@ -7,7 +7,8 @@
   color: white;
   align-items: center;
   justify-content: center;
-  
+  position: relative;
+  bottom: 0px;
 }
 .footer__icon {
   color: white;

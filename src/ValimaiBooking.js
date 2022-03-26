@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import './ValimaiBooking.css';
 import { Link } from 'react-router-dom';
 import MovieCards from './MovieCards';
@@ -6,7 +6,27 @@ import DisplayCalendar from './DisplayCalender';
 import './DisplayCalender.css';
 import { useStateValue } from './StateProvider';
 
-function ValimaiBooking() {
+function ValimaiBooking(id) {
+    const [{time,movies,movie__clicked,movie__theatre}, dispatch] = useStateValue("");
+    
+    const[datas, setData] = useState();
+    const[theatres, setTheatre] = useState([]);
+    useEffect(()=>{
+         fetch("http://localhost:8080/tickets/moviedescription?id="+id.id)
+         .then(res => res.json())
+         .then(data =>{
+            console.log(data.description);
+            setData(data);
+         })
+
+         fetch("http://localhost:8080/tickets/gettheatre?movie_id="+id.id)
+         .then(res =>res.json())
+         .then(data =>{
+             console.log(data);
+             setTheatre(data);
+         })
+        
+    },[])
     var theatre = null;
     function registerTheatre(event){
 
@@ -24,7 +44,7 @@ function ValimaiBooking() {
        document.querySelectorAll('.valimai__calendar')[0].style.display = "block";
     }
 }
-    const [{time,movies,movie__clicked,movie__theatre}, dispatch] = useStateValue("");
+    
 
     let movie ;
 
@@ -53,28 +73,30 @@ function ValimaiBooking() {
 
   return (
     <div className='valimai'>
-        <h2>Book now to watch {movie.title} at your favorite theatre</h2>
+        <h2>Book now to watch {datas?.title} at your favorite theatre</h2>
         <div className='valimai__container'>
             <div className='valimai__image'>
             <MovieCards 
-                id = {movie.id}
-                image = {movie.image}
-                title = {movie.title}
-                genre = {movie.genre}
+                id = {datas?.id}
+                image = {datas?.image}
+                title = {datas?.title}
+                genre = {datas?.genre}
         />
             </div>
             <div className='valimai__instructions'>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Justo donec enim diam vulputate ut pharetra sit amet. Pretium nibh ipsum consequat nisl vel pretium lectus quam id. Neque gravida in fermentum et sollicitudin. Id faucibus nisl tincidunt eget nullam non nisi. Aliquam nulla facilisi cras fermentum odio. Morbi tristique senectus et netus et. Non arcu risus quis varius quam quisque id diam. Sagittis orci a scelerisque purus semper eget duis at. Ornare quam viverra orci sagittis eu. Enim lobortis scelerisque fermentum dui faucibus in. Nulla at volutpat diam ut. Viverra aliquet eget sit amet tellus cras adipiscing. Convallis a cras semper auctor neque vitae tempus. Blandit aliquam etiam erat velit scelerisque in dictum. Donec enim diam vulputate ut pharetra sit amet aliquam. Massa sed elementum tempus egestas sed sed risus pretium quam.</p>
+                <p>{datas?.description}</p>
             </div>
             <div className='valimai__right__info'>
                 <div className='valimai__theatre__info' onClick={showDiv}>
                     <label for = "theater_select">Choose a theatre: </label>
                     <select className = 'theatre__select' name = "theatre__name" id = "theatre__names" onChange= {registerTheatre} >
                         <option value = "default">--</option>
-                        <option  value = "Kg-cinemas" >KG Cinemas</option>
-                        <option  value = "Ganesh" >Ganesh</option>
-                        <option  value = "Cinepolis">Cine polis</option>
-   
+
+                        {
+                        theatres?.map(theatre =>(
+                            <option  value = {theatre.movie} >{theatre.movie}</option>
+                        ))
+                        }
                     </select>
                 </div>
             <div className='valimai__calendar' id = 'valimai__calendar__id' onClick={showTimings}>

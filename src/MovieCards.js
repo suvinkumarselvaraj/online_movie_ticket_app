@@ -4,6 +4,7 @@ import './MovieCards.css';
 import {useHistory} from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 function MovieCards({id,image,title,genre}) {
+    
       const navigate = useHistory();
       const [movie__clicked, dispatch] = useStateValue();
       const idTracker = id;
