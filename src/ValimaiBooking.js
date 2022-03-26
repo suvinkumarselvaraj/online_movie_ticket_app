@@ -11,6 +11,7 @@ function ValimaiBooking(id) {
     
     const[datas, setData] = useState();
     const[theatres, setTheatre] = useState([]);
+    const[theatress,setTheatres] = useState([]);
     useEffect(()=>{
          fetch("http://localhost:8080/tickets/moviedescription?id="+id.id)
          .then(res => res.json())
@@ -18,21 +19,20 @@ function ValimaiBooking(id) {
             console.log(data.description);
             setData(data);
          })
-
          fetch("http://localhost:8080/tickets/gettheatre?movie_id="+id.id)
          .then(res =>res.json())
          .then(data =>{
              console.log(data);
              setTheatre(data);
-         })
-        
+         }) 
     },[])
     var theatre = null;
-    function registerTheatre(event){
 
+    function registerTheatre(event){
     var select = document.getElementById('theatre__names');
-    if(select!='--'){
     var value = select.options[select.selectedIndex].value;
+    console.log(value);
+    if(value!="default"){
     theatre = value;
     console.log(theatre);
     console.log(value); 
@@ -40,9 +40,20 @@ function ValimaiBooking(id) {
         type:'Add__movie__theatre__info',
         theatre__info:theatre
        })
-       
-       document.querySelectorAll('.valimai__calendar')[0].style.display = "block";
-    }
+   
+       fetch("http://localhost:8080/tickets/getdates?movie_id="+id.id+"&theatre_name="+theatre )
+       .then(res =>res.json())
+       .then(data =>{
+           console.log(data);
+           setTheatres(data);
+
+           document.querySelectorAll('.valimai__calendar')[0].style.display = "block";
+       })    
+    } 
+    else
+       {
+            document.querySelectorAll('.valimai__calendar')[0].style.display = "none";
+       }
 }
     
 
@@ -76,40 +87,43 @@ function ValimaiBooking(id) {
         <h2>Book now to watch {datas?.title} at your favorite theatre</h2>
         <div className='valimai__container'>
             <div className='valimai__image'>
-            <MovieCards 
-                id = {datas?.id}
-                image = {datas?.image}
-                title = {datas?.title}
-                genre = {datas?.genre}
-        />
+                <MovieCards 
+                    id = {datas?.id}
+                    image = {datas?.image}
+                    title = {datas?.title}
+                    genre = {datas?.genre}
+                 />
             </div>
             <div className='valimai__instructions'>
                 <p>{datas?.description}</p>
             </div>
             <div className='valimai__right__info'>
-                <div className='valimai__theatre__info' onClick={showDiv}>
+                <div className='valimai__theatre__info'>
                     <label for = "theater_select">Choose a theatre: </label>
-                    <select className = 'theatre__select' name = "theatre__name" id = "theatre__names" onChange= {registerTheatre} >
+                    <select className = 'theatre__select' id = "theatre__names" onChange={registerTheatre} >
                         <option value = "default">--</option>
-
                         {
-                        theatres?.map(theatre =>(
-                            <option  value = {theatre.movie} >{theatre.movie}</option>
+                        theatres?.map(theatress =>(
+                            <option  value = {theatress.theatre_name}>{theatress.theatre_name}</option>
                         ))
                         }
                     </select>
                 </div>
             <div className='valimai__calendar' id = 'valimai__calendar__id' onClick={showTimings}>
-                <p>Pick a date from the calendar</p>
-                <DisplayCalendar/>
+                <p>Pick a date</p>
+                {
+                    theatress?.map(theatresss=>(
+                        <button>{theatresss.date}</button>
+                    ))
+                }
             </div>
                 <div className='valimai__available__time'>
-                    <Link to = '/movies/seats'>
+                    {/* <Link to = '/movies/seats'>
                     <button className = "timing__button" type = "submit" onClick={handleClick}>10:00 AM</button>
                     <button className = "timing__button" type = "submit" onClick={handleClick}>02:00 PM</button>
                     <button className = "timing__button" type = "submit" onClick={handleClick}> 06:30 PM</button>
                     <button className = "timing__button" type = "submit" onClick={handleClick}>10:00 PM</button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>
