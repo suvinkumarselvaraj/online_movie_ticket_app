@@ -2,16 +2,17 @@ import React, {useState,useEffect} from 'react'
 import './ValimaiBooking.css';
 import { Link } from 'react-router-dom';
 import MovieCards from './MovieCards';
-import DisplayCalendar from './DisplayCalender';
+
 import './DisplayCalender.css';
 import { useStateValue } from './StateProvider';
 
 function ValimaiBooking(id) {
-    const [{time,movies,movie__clicked,movie__theatre}, dispatch] = useStateValue("");
+    const [{time,movies,movie__clicked,movie__theatre, movie__date}, dispatch] = useStateValue("");
     
     const[datas, setData] = useState();
     const[theatres, setTheatre] = useState([]);
-    const[theatress,setTheatres] = useState([]);
+    const[dates,setDates] = useState([]);
+    const[timings,setTimings] = useState([]);
     useEffect(()=>{
          fetch("http://localhost:8080/tickets/moviedescription?id="+id.id)
          .then(res => res.json())
@@ -22,6 +23,7 @@ function ValimaiBooking(id) {
          fetch("http://localhost:8080/tickets/gettheatre?movie_id="+id.id)
          .then(res =>res.json())
          .then(data =>{
+
              console.log(data);
              setTheatre(data);
          }) 
@@ -45,8 +47,7 @@ function ValimaiBooking(id) {
        .then(res =>res.json())
        .then(data =>{
            console.log(data);
-           setTheatres(data);
-
+           setDates(data);
            document.querySelectorAll('.valimai__calendar')[0].style.display = "block";
        })    
     } 
@@ -55,18 +56,6 @@ function ValimaiBooking(id) {
             document.querySelectorAll('.valimai__calendar')[0].style.display = "none";
        }
 }
-    
-
-    let movie ;
-
-    for(var i = 0; i<movies.length;i++){
-        if(movies[i].id === parseInt(movie__clicked))
-            {
-                movie = movies[i];
-            }
-    }
-    
-    console.log(movie);
     const handleClick = (event)=>{
         dispatch({
             type: 'Add__movie__timing',
@@ -78,10 +67,30 @@ function ValimaiBooking(id) {
       
 
     }
-    function showTimings(event){
-        document.querySelectorAll('.valimai__available__time')[0].style.display="block";
-    }
+    // function showTimings(event){
+    //     console.log(document);
+        
+    //     document.querySelectorAll('.valimai__available__time')[0].style.display="block";
+    // }
 
+    function registerDate(event){
+    var select = document.getElementById('movie__dates');
+    var value = select.options[select.selectedIndex].value;
+    console.log(value);
+    
+    dispatch({
+        type: 'Add__movie__date',
+        date: value
+    })
+    console.log(theatres);
+    fetch('http://localhost:8080/tickets/gettimings?movie_id='+id.id+'&theatre_name='+movie__theatre+'&date='+value)
+    .then(res => res.json())
+    .then(data =>{
+        console.log(data);
+        setTimings(data);
+        document.querySelectorAll('.valimai__available__time')[0].style.display="block";
+    })
+    }
   return (
     <div className='valimai'>
         <h2>Book now to watch {datas?.title} at your favorite theatre</h2>
@@ -109,21 +118,30 @@ function ValimaiBooking(id) {
                         }
                     </select>
                 </div>
-            <div className='valimai__calendar' id = 'valimai__calendar__id' onClick={showTimings}>
-                <p>Pick a date</p>
-                {
+            <div className='valimai__calendar' id = 'valimai__calendar__id' >               
+                <label for = "date__select">Pick a date available from the list </label>
+                    <select className = 'date__select' id = "movie__dates" onChange = {registerDate} >
+                        <option value = "default">--</option>
+                        {
+                        dates?.map(datess =>(
+                            <option  value = {datess.date}>{datess.date}</option>
+                        ))
+                        }
+                    </select>
+
+                {/* {
                     theatress?.map(theatresss=>(
-                        <button>{theatresss.date}</button>
+                        <button className ='dates' onClick={showTimings}>{theatresss.date}</button>
                     ))
-                }
+                } */}
             </div>
                 <div className='valimai__available__time'>
-                    {/* <Link to = '/movies/seats'>
-                    <button className = "timing__button" type = "submit" onClick={handleClick}>10:00 AM</button>
-                    <button className = "timing__button" type = "submit" onClick={handleClick}>02:00 PM</button>
-                    <button className = "timing__button" type = "submit" onClick={handleClick}> 06:30 PM</button>
-                    <button className = "timing__button" type = "submit" onClick={handleClick}>10:00 PM</button>
-                    </Link> */}
+                    <Link to = '/movies/seats'>
+                    {theatres?.map(timing=>(
+                        <p>{timing.time}</p>
+                    ))     
+}
+                    </Link>
                 </div>
             </div>
         </div>
