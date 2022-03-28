@@ -1,19 +1,23 @@
 import React, {useState,useEffect} from 'react'
 import './ValimaiBooking.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import MovieCards from './MovieCards';
 
 import './DisplayCalender.css';
 import { useStateValue } from './StateProvider';
 
+
 function ValimaiBooking(id) {
-    const [{time,movies,movie__clicked,movie__theatre, movie__date}, dispatch] = useStateValue("");
-    
+    const history = useHistory();
+    const [{time,movies,movie__clicked,movie__theatre, movie__date, movie__id}, dispatch] = useStateValue("");
+  
     const[datas, setData] = useState();
     const[theatres, setTheatre] = useState([]);
     const[dates,setDates] = useState([]);
     const[timings,setTimings] = useState([]);
+    
     useEffect(()=>{
+       
          fetch("http://localhost:8080/tickets/moviedescription?id="+id.id)
          .then(res => res.json())
          .then(data =>{
@@ -29,7 +33,7 @@ function ValimaiBooking(id) {
          }) 
     },[])
     var theatre = null;
-
+  
     function registerTheatre(event){
     var select = document.getElementById('theatre__names');
     var value = select.options[select.selectedIndex].value;
@@ -57,27 +61,33 @@ function ValimaiBooking(id) {
        }
 }
     const handleClick = (event)=>{
-        dispatch({
-            type: 'Add__movie__timing',
-            time__movie: event.target.innerHTML
-        })
+      
         
     }
    function showDiv(event){ 
       
 
     }
-    // function showTimings(event){
-    //     console.log(document);
-        
-    //     document.querySelectorAll('.valimai__available__time')[0].style.display="block";
-    // }
 
+    function registerTiming(event){
+        var select = document.getElementById('movie__time');
+        console.log(select);
+        var value = select.options[select.selectedIndex].value;
+        console.log(value);
+        if(value!="default"){
+        dispatch({
+            type:'Add__movie__timing',
+            time__movie: value
+        })
+            history.push('/movies/seats');
+        }
+
+    }
     function registerDate(event){
     var select = document.getElementById('movie__dates');
     var value = select.options[select.selectedIndex].value;
     console.log(value);
-    
+    if(value!="default"){
     dispatch({
         type: 'Add__movie__date',
         date: value
@@ -90,6 +100,7 @@ function ValimaiBooking(id) {
         setTimings(data);
         document.querySelectorAll('.valimai__available__time')[0].style.display="block";
     })
+}
     }
   return (
     <div className='valimai'>
@@ -136,12 +147,16 @@ function ValimaiBooking(id) {
                 } */}
             </div>
                 <div className='valimai__available__time'>
-                    <Link to = '/movies/seats'>
-                    {theatres?.map(timing=>(
-                        <p>{timing.time}</p>
-                    ))     
-}
-                    </Link>
+                
+                <label for = "time__select">Show timings </label>
+                    <select className = 'time__select' id = "movie__time" onChange = {registerTiming} >
+                        <option value = "default">--</option>
+                        {
+                        theatres?.map(timing =>(
+                            <option  value = {timing.time}>{timing.time}</option>
+                        ))
+                        }
+                    </select>
                 </div>
             </div>
         </div>

@@ -54,7 +54,8 @@
 .valimai__available__time {
   display: none;
 }
-.date__select {
+.date__select,
+.time__select {
   background-color: rgb(248, 68, 100);
   /* margin-bottom: 4px; */
   border-radius: 5px;

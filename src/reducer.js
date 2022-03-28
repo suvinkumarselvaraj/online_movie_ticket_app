@@ -70,7 +70,9 @@ export const initialSeatState = {
         ],
     movie__clicked: null,
     user: null,
-    data__set: 0
+    data__set: 0,
+    movie__id: 0,
+    theatre__id: 0
 };
 
 const reducer = (state, action)=>{
@@ -169,6 +171,20 @@ const reducer = (state, action)=>{
             })
         }
         break;
+
+        case 'Add__movie__id':{
+            return({
+                ...state,
+                movie__id: movie_id
+            })
+        }
+
+        case 'Add__theatre__id':{
+            return({
+                ...state,
+                theatre__id: theatre_id
+            })
+        }
         default: return state;
     }
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import './SelectSeats.css';
 import {useStateValue} from './StateProvider';
 import {useHistory} from 'react-router-dom';
@@ -10,8 +10,14 @@ function SelectSeats() {
     var count = 0;
         var eachPersonCount=0;
     const [count__seats,setCount] = useState(0);
-    const [{seat__array,movie__clicked,movies, user}, dispatch] = useStateValue();
-   
+    const [{seat__array,movie__clicked,movie__name,movies, user, movie__theatre, movie__date, movie__time}, dispatch] = useStateValue();
+   useEffect(()=>{
+    fetch("http://localhost:8080/tickets/getbookings?movie_name="+movie__clicked+"&theatre_name="+movie__theatre+"&date="+movie__date+"&time="+movie__time)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+    })
+   })
     function handleClick(event){
         console.log(event.target.id);
         const id = event.target.id;
