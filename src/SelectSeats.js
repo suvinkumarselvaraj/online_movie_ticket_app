@@ -57,7 +57,7 @@ function SelectSeats() {
                 }
                 // console.log(event.target);
            
-        console.log(seat__array.length);
+        console.log(seat__array);
        
 
 
