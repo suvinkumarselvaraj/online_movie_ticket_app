@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import './SelectSeats.css';
+import { Link } from 'react-router-dom';
 import {useStateValue} from './StateProvider';
 import {useHistory} from 'react-router-dom';
 import MovieCards from './MovieCards';
@@ -24,7 +25,8 @@ function SelectSeats() {
         console.log(event.target.id);
         const id = event.target.id;
        console.log(id);
-                if(event.target.style.backgroundColor ==="")    
+
+                if(event.target.style.backgroundColor ==="" && user)    
                 {
                     event.target.style.backgroundColor = "green";
                     console.log(eachPersonCount);
@@ -50,24 +52,28 @@ function SelectSeats() {
                 })
 
              }
-             else{
+             else
+             if(event.target.style.backgroundColor === "red"){
                  alert('this seat is already reserved');
+             }
+             else{
+                 alert("sigin in to book the seats");
              }
         
                 }
                 // console.log(event.target);
            
         console.log(seat__array);
-       
-
-
     function handleSubmission(event){
-        if(seat__array.length>0){
-            for(var i = 0; i<seat__array.length;i++){
-                console.log(document.getElementById(seat__array[i].id).style.backgroundColor = "red");
-            console.log(seat__array[i].id);
-            }
+       if(user && seat__array.length > 0){
+            navigate.push('/movies/payment');
         }
+    else
+    if(user && seat__array.length === 0){
+        alert('Select your seats before proceeding');
+    }
+    else
+    alert('Please signin to book your tickets');
     }
 
     function fillSeats(){
@@ -151,9 +157,9 @@ function SelectSeats() {
            <div className='display__seat__counts'>
                <h2>{seat__array?.length}</h2><p>seats marked</p>
            </div>
-           {/* <Link to = "/movies/payment"> */}
+         
             <button className = "book__button" type='submit' onClick={handleSubmission}>Click here to proceed</button>
-            {/* </Link> */}
+         
         </div>
 
         

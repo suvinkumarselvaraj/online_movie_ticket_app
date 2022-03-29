@@ -27,28 +27,31 @@ function Payment() {
    </div>
    )
   }
-
   function registerPayment(event){
     var movie__name = movie.title;
     var venue = "abc";
     var cost = seat__array.length*100;
     cost = cost.toString();
     
-    const object = {movie__name,movie__clicked,movie__theatre,venue,seat__array,movie__date,cost,user};
-    fetch('http://localhost:8080/tickets/store', {
-      method: 'POST', 
-      // or 'PUT'
-      // headers: { 
-      //   'Content-Type': 'application/json',
-      // },
-      body: JSON.stringify(object),
-
-    })
-    .then(response => response.json())
-    .then(data => { 
-      navigate.push("/complete/payment");
-
-    })
+    const data = {'username':user,'movie_name':movie__clicked,'movie_theatre':movie__theatre,'seat_no':seat__array,'date':movie__date,'time':movie__time}
+      fetch('http://localhost:8080/tickets/savetickets', {
+      method: 'POST', // or 'PUT'
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+          if(data.status === 'success')
+         {
+              console.log('200 ok');
+          }
+      })
+      .catch((error) => {
+      console.error('Error:', error);
+      }); 
+    
   }
   return (
     <div className='payment'>
