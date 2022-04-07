@@ -18,7 +18,8 @@ function Home() {
    const [{user},dispatch] = useStateValue();
   return (
     <div className='home'>
-        <h1>Hey {user?user :'Your Recommended Movies'}</h1>
+        {/* <h1>Hey {user?user :'Your Recommended Movies'}</h1> */}
+        <h1>Hey {sessionStorage.getItem("name")?sessionStorage.getItem("name") :'Your Recommended Movies'}</h1> 
         <div className='home__row__1'> 
           {datas?.map(data =>(
               <MovieCards 

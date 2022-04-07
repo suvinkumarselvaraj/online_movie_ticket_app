@@ -12,6 +12,7 @@ function Header() {
       dispatch({
         type: 'Remove__user'
       })
+      sessionStorage.removeItem("name");
       history.replace("/");
     }
     else {
@@ -36,7 +37,7 @@ function Header() {
           <option value="bangalore">Bangalore</option>
         </select>
 
-        <button name='header__button' className='header__button' onClick={handleClick}>{user ? 'Sign out' : 'Sign in'}</button>
+        <button name='header__button' className='header__button' onClick={handleClick}>{sessionStorage.getItem("name") ? 'Sign out' : 'Sign in'}</button>
 
 
       </div>

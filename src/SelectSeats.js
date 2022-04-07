@@ -26,7 +26,7 @@ function SelectSeats() {
         const id = event.target.id;
        console.log(id);
 
-                if(event.target.style.backgroundColor ==="" && user)    
+                if(event.target.style.backgroundColor ==="" && sessionStorage.getItem("name"))    
                 {
                     event.target.style.backgroundColor = "green";
                     console.log(eachPersonCount);

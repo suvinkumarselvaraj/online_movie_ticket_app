@@ -41,6 +41,7 @@ function Login() {
                 type: 'Add__user',
                 name: data.user
               });
+              sessionStorage.setItem("name",data.user);
               navigate.push("/");
             } else {
               alert("There is an account already linked with the same username "+data.uname);
@@ -59,6 +60,7 @@ function Login() {
                     type: 'Add__user',
                     name: data.uname
                   });
+                  sessionStorage.setItem("name",data.uname);
                   
                   navigate.push('/');
                 } else{

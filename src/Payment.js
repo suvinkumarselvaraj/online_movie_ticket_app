@@ -14,7 +14,7 @@ function Payment() {
   for(var i = 0; i<movies.length;i++){
     if(movies[i].id === parseInt(movie__clicked))
     {
-      movie = movies[i];
+      movie = movies[i];  
       break;
     }
   }
@@ -46,6 +46,7 @@ function Payment() {
           if(data.status === 'success')
          {
               console.log('200 ok');
+              navigate.push("/complete/payment");
           }
       })
       .catch((error) => {
